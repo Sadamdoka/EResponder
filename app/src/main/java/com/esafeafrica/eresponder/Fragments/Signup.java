@@ -107,13 +107,13 @@ public class Signup extends Fragment {
         spinner_organ = item.findViewById(R.id.rt_organ);
         create = item.findViewById(R.id.btn_register);
 
-        getOrgan(new Organ("0", "null", "null", "3"));
+        //getOrgan(new Organ("0", "null", "null", "3"));
 
         spinner_organ.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("OrganID",organs.get(position).getOrganid());
-                getOrganSingle(new Organ("0", "null", organs.get(position).getOrganid(), "null"));
+                //getOrganSingle(new Organ("0", "null", organs.get(position).getOrganid(), "null"));
             }
 
             @Override
@@ -187,7 +187,7 @@ public class Signup extends Fragment {
 
     private void getOrganSingle(Organ organ) {
         apiInterface = RetroClient.getClient().create(ApiInterface.class);
-        Call<OrganSingle> call = apiInterface.organSingle(organ.getId(), organ.getOrganid(), organ.getType(), organ.getNames());
+        Call<OrganSingle> call = apiInterface.organSingle(organ.getId(), organ.getOrganid(), "organ.getType()", organ.getNames());
         call.enqueue(new Callback<OrganSingle>() {
             @Override
             public void onResponse(Call<OrganSingle> call, Response<OrganSingle> response) {
@@ -195,7 +195,7 @@ public class Signup extends Fragment {
                     if (response.body() != null) {
                         OrganSingle organSingle = response.body();
                         Log.d("Organ",organSingle.getOrgan().getNames());
-                        organ_details = new Organ(organSingle.getOrgan().getDatereg(), organSingle.getOrgan().getId(), organSingle.getOrgan().getStatus(), organSingle.getOrgan().getAddress(), organSingle.getOrgan().getEmail(), organSingle.getOrgan().getNames(), organSingle.getOrgan().getOrganid(), organSingle.getOrgan().getPhone(), organSingle.getOrgan().getType());
+                        //organ_details = new Organ(organSingle.getOrgan().getDatereg(), organSingle.getOrgan().getId(), organSingle.getOrgan().getStatus(), organSingle.getOrgan().getAddress(), organSingle.getOrgan().getEmail(), organSingle.getOrgan().getNames(), organSingle.getOrgan().getOrganid(), organSingle.getOrgan().getPhone(), "organSingle.getOrgan().getType()");
                     }
                 } else {
                     ServerError(getContext(), getLayoutInflater());
@@ -211,7 +211,7 @@ public class Signup extends Fragment {
 
     private void getOrgan(Organ organ) {
         apiInterface = RetroClient.getClient().create(ApiInterface.class);
-        Call<OrganList> organListCall = apiInterface.organ(organ.getId(), organ.getOrganid(), organ.getType(), organ.getNames());
+        Call<OrganList> organListCall = apiInterface.organ(organ.getId(), organ.getOrganid(), "organ.getType()", organ.getNames());
         organListCall.enqueue(new Callback<OrganList>() {
             @Override
             public void onResponse(Call<OrganList> call, Response<OrganList> response) {

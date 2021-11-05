@@ -1,5 +1,11 @@
 package com.esafeafrica.eresponder.Fragments;
 
+import static com.esafeafrica.eresponder.Config.ErrorMgt.NoInternet;
+import static com.esafeafrica.eresponder.Config.ErrorMgt.ServerError;
+import static com.esafeafrica.eresponder.Config.ErrorMgt.ZeroReturn;
+import static com.esafeafrica.eresponder.Config.Validation.getBitmapFromURLGlide;
+import static com.esafeafrica.eresponder.Config.Validation.toDouble;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -37,6 +43,9 @@ import com.esafeafrica.eresponder.Model.Amnesty;
 import com.esafeafrica.eresponder.Model.AmnestyList;
 import com.esafeafrica.eresponder.Model.Emergency;
 import com.esafeafrica.eresponder.Model.EmergencyList;
+import com.esafeafrica.eresponder.Model.UserWorker;
+import com.esafeafrica.eresponder.Model.UserWorkerList;
+import com.esafeafrica.eresponder.Model.UserWorkerSingle;
 import com.esafeafrica.eresponder.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -63,31 +72,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.esafeafrica.eresponder.Config.ErrorMgt.NoInternet;
-import static com.esafeafrica.eresponder.Config.ErrorMgt.ZeroReturn;
-import static com.esafeafrica.eresponder.Config.Validation.getBitmapFromURLGlide;
-import static com.esafeafrica.eresponder.Config.Validation.toDouble;
 
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback, GoogleMap.OnMyLocationClickListener,
-        GoogleMap.OnMyLocationButtonClickListener, GoogleApiClient.ConnectionCallbacks
+        GoogleMap.OnMyLocationButtonClickListener,GoogleApiClient.ConnectionCallbacks
         , GoogleApiClient.OnConnectionFailedListener, LocationListener {
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private ProgressSync progressSync;
     private GoogleMap mMap;
     private LocationManager locationManager;
     private ArrayList<Amnesty> amnesties;
-    private GoogleApiClient mGoogleApiClient;
-    private ArrayList<Emergency> emergencies;
-    private ArrayList<Account> accounts;
-    private Location mLastLocation;
-    private LocationRequest mLocationRequest;
     private Geocoder geocoder;
-    //private Marker mCurrLocationMarker;
     private ApiInterface apiInterface;
     private EditText txtsearch;
     private ImageButton btnsearch;
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
+    private LocationRequest mLocationRequest;
+    private Marker mCurrLocationMarker;
+    private ArrayList<UserWorker> accounts;
+    private ArrayList<Emergency> emergencies;
 
     public static Bitmap createCustomMarker(Context context, @DrawableRes int resource) {
 
@@ -110,12 +115,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
     }
 
     public static Bitmap createCustomMarker(Context context, Bitmap bitmap) {
-
         View marker = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker, null);
-
         CircleImageView markerImage = (CircleImageView) marker.findViewById(R.id.user_dp);
         markerImage.setImageBitmap(bitmap);
-
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         marker.setLayoutParams(new ViewGroup.LayoutParams(52, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -125,14 +127,13 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
         bitmap = Bitmap.createBitmap(marker.getMeasuredWidth(), marker.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         marker.draw(canvas);
-
-        return bitmap;
-    }
+        return bitmap;    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_maps, container, false);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -162,27 +163,22 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         mMap = googleMap;
         // Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         getAddresses();
-        getAlerts(new Emergency());
         getWorkers();
-
+        //addMarkers();
+        //loadClient(getClient());
         enableMyLocationIfPermitted();
-        //mMap.setMyLocationEnabled(true);
+
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
         mMap.setOnMyLocationClickListener(this);
         mMap.setOnMyLocationButtonClickListener(this);
-
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setRotateGesturesEnabled(true);
-
-
     }
 
     /**
@@ -195,8 +191,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
      * return client;
      * }
      **/
-
-
     private void onMapSearch(String loc) {
         List<Address> addressList = null;
         if (loc != null || !loc.equals("")) {
@@ -215,11 +209,10 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
         }
     }
 
-
     private void getAlerts(Emergency emergency) {
         //progressSync.showDialog();
         apiInterface = RetroClient.getClient().create(ApiInterface.class);
-        Call<EmergencyList> call = apiInterface.selectEmergency(emergency.getId(), emergency.getEmerid(), emergency.getUserid(), emergency.getPassport(), null);
+        Call<EmergencyList> call = apiInterface.selectEmergency(emergency.getId(), emergency.getEmerid(), emergency.getUserid(), emergency.getPassport(), "Og91220_394");
         call.enqueue(new Callback<EmergencyList>() {
             @Override
             public void onResponse(Call<EmergencyList> call, Response<EmergencyList> response) {
@@ -244,30 +237,65 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
         });
     }
 
-    private void getWorkers() {
+    private void getSingleWorker(){
         apiInterface = RetroClient.getClient().create(ApiInterface.class);
-        Call<AccountList> call = apiInterface.allAccount();
-        call.enqueue(new Callback<AccountList>() {
+        Call<UserWorkerSingle> call=apiInterface.allAccountSingle();
+        call.enqueue(new Callback<UserWorkerSingle>() {
             @Override
-            public void onResponse(Call<AccountList> call, Response<AccountList> response) {
+            public void onResponse(Call<UserWorkerSingle> call, Response<UserWorkerSingle> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         //progressSync.hideDialog();
-                        accounts = response.body().getAccounts();
+                        //accounts = response.body().();
                         Log.d("Maps", "Workers locations");
-                        loadWorkers(accounts);
+                        Log.d("Data",response.body().getUserWorker().getNames());
+                        //loadWorkers(accounts);
                     } else {
                         ZeroReturn(getContext(), getLayoutInflater());
+                        Log.d("Maps", "Workers locations");
                     }
 
                 } else {
-                    NoInternet(getContext(), getLayoutInflater());
+                    ServerError(getContext(), getLayoutInflater());
+                    Log.d("Worker", "Workers locations");
                 }
             }
 
             @Override
-            public void onFailure(Call<AccountList> call, Throwable t) {
-                NoInternet(getContext(), getLayoutInflater());
+            public void onFailure(Call<UserWorkerSingle> call, Throwable t) {
+
+            }
+        });
+    }
+    private void getWorkers() {
+        apiInterface = RetroClient.getClient().create(ApiInterface.class);
+        Call<UserWorkerList> call = apiInterface.allAccount();
+        call.enqueue(new Callback<UserWorkerList>() {
+            @Override
+            public void onResponse(Call<UserWorkerList> call, Response<UserWorkerList> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        //progressSync.hideDialog();
+                        accounts = response.body().getUserWorker();
+                        Log.d("Maps", "Workers locations");
+                        Log.d("Data",accounts.get(0).getNames());
+                        //loadWorkers(accounts);
+                    } else {
+                        ZeroReturn(getContext(), getLayoutInflater());
+                        Log.d("Maps", "Workers locations");
+                    }
+
+                } else {
+                    ServerError(getContext(), getLayoutInflater());
+                    Log.d("Worker", "Workers locations");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserWorkerList> call, Throwable t) {
+                //NoInternet(getContext(), getLayoutInflater());
+                //Log.d("Worker", "Workers locations");
+                getSingleWorker();
             }
         });
     }
@@ -292,8 +320,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
     }
 
 
-    private void loadWorkers(ArrayList<Account> accountArrayList) {
-
+    private void loadWorkers(ArrayList<UserWorker> accountArrayList) {
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setMinZoomPreference(11);
         for (int i = 0; i < accountArrayList.size(); i++) {
@@ -314,6 +341,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
             }
         }
     }
+
 
     private void getAddresses() {
         //progressSync.showDialog();
@@ -337,7 +365,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
             @Override
             public void onFailure(Call<AmnestyList> call, Throwable t) {
                 //progressSync.hideDialog();
-                NoInternet(getContext(), getLayoutInflater());
+                ServerError(getContext(), getLayoutInflater());
                 t.printStackTrace();
             }
         });
@@ -350,7 +378,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
         mMap.setMinZoomPreference(11);
         for (int i = 0; i < amnestyArrayList.size(); i++) {
             MarkerOptions markerOptions = new MarkerOptions();
-            getBitmapFromURLGlide(getContext(), markerOptions, new Amnesty(amnestyArrayList.get(i).getDatereg(), amnestyArrayList.get(i).getId(), amnestyArrayList.get(i).getLatitude(), amnestyArrayList.get(i).getLongitude(), amnestyArrayList.get(i).getName(), amnestyArrayList.get(i).getPic(), amnestyArrayList.get(i).getStatus()), mMap);
+            getBitmapFromURLGlide(getContext(),markerOptions,new Amnesty(amnestyArrayList.get(i).getDatereg(),amnestyArrayList.get(i).getId(),amnestyArrayList.get(i).getLatitude(),amnestyArrayList.get(i).getLongitude(),amnestyArrayList.get(i).getName(),amnestyArrayList.get(i).getPic(),amnestyArrayList.get(i).getStatus()),mMap);
             //Marker m = mMap.addMarker(markerOptions);
             //m.setTag(amnestyArrayList.get(i));
             //m.showInfoWindow();
@@ -402,35 +430,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
         }
     }
 
-    protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
-    }
-
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            } else {
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -441,7 +440,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
                 enableMyLocationIfPermitted();
 
             } else {
-                showDefaultLocation();
+                //showDefaultLocation();
             }
         }
     }
@@ -469,7 +468,34 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback, Google
         LatLng lng = new LatLng(0.330712, 32.606151);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(lng));
     }
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
+    }
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
 
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            } else {
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         mLocationRequest = new LocationRequest();

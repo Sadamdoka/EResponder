@@ -17,10 +17,10 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
+import com.esafeafrica.eresponder.MainActivity;
 import com.esafeafrica.eresponder.Model.Notify;
 import com.esafeafrica.eresponder.R;
-import com.wakaimalabs.responder.MainActivity;
-import com.wakaimalabs.responder.Welcome;
+import com.esafeafrica.eresponder.Welcome;
 
 import java.io.IOException;
 import java.io.InputStream;

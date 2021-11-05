@@ -160,7 +160,7 @@ Signin extends Fragment {
                 if (response.isSuccessful()) {
                     if (feedback.getStatus()) {
                         progressSync.hideDialog();
-                        //Log.d("Success", "Client Successs");
+                        Log.d("Success", "Client Successs");
                         session.createLoginSession(responder.getEmail(), responder.getPassword());
                         // createFirebase(responder.getEmail(),responder.getPassword());
                         gotoMain(responder);

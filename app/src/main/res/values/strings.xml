@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Esafe</string>
+    <string name="app_name">EResponder</string>
     <string name="action_settings">Settings</string>
     <string name="moto">T &amp; C\'s Apply</string>
     <string name="safe">Safe</string>
@@ -11,7 +11,7 @@
     <string name="password">Password</string>
     <string name="e_mail">Email</string>
     <string name="emno">Email Or Number</string>
-    <string name="tag">Creating Employment opportunities</string>
+    <string name="tag">Safe Monitoring</string>
     <string name="swipe_left">Swipe Left for Login</string>
     <string name="register">Register</string>
     <string name="re_type_password">Re-type Password</string>

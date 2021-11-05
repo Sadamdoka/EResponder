@@ -116,24 +116,17 @@ public class alertChooser extends DialogFragment {
         //name.setText(getEmergency().getNames());
         String cond = getEmergency().getTopic();
         if (cond.equals("Police Alert")) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.event_array_pol, android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             event.setAdapter(adapter);
-            ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(context, R.array.extra_array_pol, android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(context, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             extra.setAdapter(arrayAdapter);
         } else if (cond.equals("Health Alert")) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.event_array_health, android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             event.setAdapter(adapter);
-            ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(context, R.array.extra_array_health, android.R.layout.simple_spinner_dropdown_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            extra.setAdapter(arrayAdapter);
-        } else if (cond.equals("Fire Alert")) {
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.event_array_fire, android.R.layout.simple_spinner_dropdown_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            event.setAdapter(adapter);
-            ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(context, R.array.extra_array_fire, android.R.layout.simple_spinner_dropdown_item);
+            ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(context, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             extra.setAdapter(arrayAdapter);
         } else {

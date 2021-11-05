@@ -14,7 +14,7 @@ public class ChatMessage {
         messageTime = new Date().getTime();
     }
 
-    public ChatMessage() {
+    public ChatMessage(){
 
     }
 

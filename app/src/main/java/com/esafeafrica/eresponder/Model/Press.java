@@ -1,3 +1,4 @@
+
 package com.esafeafrica.eresponder.Model;
 
 import android.os.Parcel;
@@ -8,17 +9,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Press implements Parcelable {
 
-    public static final Creator<Press> CREATOR = new Creator<Press>() {
-        @Override
-        public Press createFromParcel(Parcel in) {
-            return new Press(in);
-        }
-
-        @Override
-        public Press[] newArray(int size) {
-            return new Press[size];
-        }
-    };
     @SerializedName("datereg")
     @Expose
     private String datereg;
@@ -58,6 +48,18 @@ public class Press implements Parcelable {
         pic4 = in.readString();
         pic5 = in.readString();
     }
+
+    public static final Creator<Press> CREATOR = new Creator<Press>() {
+        @Override
+        public Press createFromParcel(Parcel in) {
+            return new Press(in);
+        }
+
+        @Override
+        public Press[] newArray(int size) {
+            return new Press[size];
+        }
+    };
 
     public Press() {
     }

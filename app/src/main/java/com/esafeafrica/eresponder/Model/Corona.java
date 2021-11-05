@@ -1,3 +1,4 @@
+
 package com.esafeafrica.eresponder.Model;
 
 import android.os.Parcel;
@@ -8,17 +9,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Corona implements Parcelable {
 
-    public static final Creator<Corona> CREATOR = new Creator<Corona>() {
-        @Override
-        public Corona createFromParcel(Parcel in) {
-            return new Corona(in);
-        }
-
-        @Override
-        public Corona[] newArray(int size) {
-            return new Corona[size];
-        }
-    };
     @SerializedName("datereg")
     @Expose
     private String datereg;
@@ -82,6 +72,18 @@ public class Corona implements Parcelable {
         travel = in.readString();
         were = in.readString();
     }
+
+    public static final Creator<Corona> CREATOR = new Creator<Corona>() {
+        @Override
+        public Corona createFromParcel(Parcel in) {
+            return new Corona(in);
+        }
+
+        @Override
+        public Corona[] newArray(int size) {
+            return new Corona[size];
+        }
+    };
 
     public Corona() {
     }

@@ -1,3 +1,4 @@
+
 package com.esafeafrica.eresponder.Model;
 
 import com.google.gson.annotations.Expose;
@@ -13,8 +14,8 @@ public class UserSingle {
         return user;
     }
 
-    public void setUser(User responder) {
-        this.user = responder;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

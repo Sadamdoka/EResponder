@@ -1,5 +1,8 @@
 package com.esafeafrica.eresponder.Holder;
 
+import static com.esafeafrica.eresponder.Config.Validation.ConvertImage;
+import static com.esafeafrica.eresponder.Config.Validation.getDrawable;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -12,8 +15,6 @@ import com.esafeafrica.eresponder.Adaptors.pressAdaptor;
 import com.esafeafrica.eresponder.Model.Press;
 import com.esafeafrica.eresponder.R;
 
-import static com.wakaimalabs.responder.Config.Validation.ConvertImage;
-import static com.wakaimalabs.responder.Config.Validation.getDrawable;
 
 
 public class pressHolder extends RecyclerView.ViewHolder {

@@ -41,14 +41,7 @@ public class Amnesty implements Parcelable {
     @Expose
     private String status;
 
-    protected Amnesty(Parcel in) {
-        datereg = in.readString();
-        id = in.readString();
-        latitude = in.readString();
-        longitude = in.readString();
-        name = in.readString();
-        pic = in.readString();
-        status = in.readString();
+    public Amnesty() {
     }
 
     public Amnesty(String datereg, String id, String latitude, String longitude, String name, String pic, String status) {
@@ -59,6 +52,16 @@ public class Amnesty implements Parcelable {
         this.name = name;
         this.pic = pic;
         this.status = status;
+    }
+
+    protected Amnesty(Parcel in) {
+        datereg = in.readString();
+        id = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
+        name = in.readString();
+        pic = in.readString();
+        status = in.readString();
     }
 
     public String getDatereg() {

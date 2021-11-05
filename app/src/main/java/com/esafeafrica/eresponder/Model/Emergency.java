@@ -1,3 +1,4 @@
+
 package com.esafeafrica.eresponder.Model;
 
 import android.os.Parcel;
@@ -8,17 +9,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Emergency implements Parcelable {
 
-    public static final Creator<Emergency> CREATOR = new Creator<Emergency>() {
-        @Override
-        public Emergency createFromParcel(Parcel in) {
-            return new Emergency(in);
-        }
-
-        @Override
-        public Emergency[] newArray(int size) {
-            return new Emergency[size];
-        }
-    };
     @SerializedName("datereg")
     @Expose
     private String datereg;
@@ -58,6 +48,9 @@ public class Emergency implements Parcelable {
     @SerializedName("passport")
     @Expose
     private String passport;
+    @SerializedName("organ")
+    @Expose
+    private String organ;
     @SerializedName("topic")
     @Expose
     private String topic;
@@ -68,14 +61,19 @@ public class Emergency implements Parcelable {
     public Emergency() {
     }
 
-    public Emergency(String id, String emerid, String passport, String userid) {
+    public Emergency(String event) {
+        this.event = event;
+    }
+
+    public Emergency(String id, String emerid, String passport, String organ, String userid) {
         this.id = id;
         this.emerid = emerid;
         this.passport = passport;
+        this.organ = organ;
         this.userid = userid;
     }
 
-    public Emergency(String datereg, String id, String status, String bpic, String details, String emerid, String formerid, String event, String lati, String location, String longi, String name, String passport, String topic, String userid) {
+    public Emergency(String datereg, String id, String status, String bpic, String details, String emerid, String formerid, String event, String lati, String location, String longi, String name, String passport, String organ, String topic, String userid) {
         this.datereg = datereg;
         this.id = id;
         this.status = status;
@@ -89,6 +87,7 @@ public class Emergency implements Parcelable {
         this.longi = longi;
         this.name = name;
         this.passport = passport;
+        this.organ = organ;
         this.topic = topic;
         this.userid = userid;
     }
@@ -110,6 +109,18 @@ public class Emergency implements Parcelable {
         topic = in.readString();
         userid = in.readString();
     }
+
+    public static final Creator<Emergency> CREATOR = new Creator<Emergency>() {
+        @Override
+        public Emergency createFromParcel(Parcel in) {
+            return new Emergency(in);
+        }
+
+        @Override
+        public Emergency[] newArray(int size) {
+            return new Emergency[size];
+        }
+    };
 
     @Override
     public int describeContents() {
@@ -253,5 +264,13 @@ public class Emergency implements Parcelable {
 
     public void setUserid(String userid) {
         this.userid = userid;
+    }
+
+    public String getOrgan() {
+        return organ;
+    }
+
+    public void setOrgan(String organ) {
+        this.organ = organ;
     }
 }

@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<UserSingle> call, Response<UserSingle> response) {
                 if (response.isSuccessful()) {
                     UserSingle userSingle = response.body();
-                    if (userSingle.getUser().getEmail() != null) {
+                    if (userSingle.getUser().getName() != null) {
                         names = userSingle.getUser().getName();
                         email = userSingle.getUser().getEmail();
                         tel_num = userSingle.getUser().getPhone();

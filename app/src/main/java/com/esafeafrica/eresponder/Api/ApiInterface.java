@@ -13,8 +13,10 @@ import com.esafeafrica.eresponder.Model.NumbersList;
 import com.esafeafrica.eresponder.Model.OrganList;
 import com.esafeafrica.eresponder.Model.OrganSingle;
 import com.esafeafrica.eresponder.Model.PressList;
+import com.esafeafrica.eresponder.Model.User;
 import com.esafeafrica.eresponder.Model.UserSingle;
 import com.esafeafrica.eresponder.Model.UserWorkerList;
+import com.esafeafrica.eresponder.Model.UserWorkerSingle;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -71,7 +73,7 @@ public interface ApiInterface {
     Call<Feedback> updateEmergency(@Part("id") RequestBody id, @Part("name") RequestBody name, @Part("lati") RequestBody lati, @Part("longi") RequestBody longi, @Part("brief") RequestBody brief, @Part("event") RequestBody event, @Part("extras") RequestBody extras);
 
     @Multipart
-    @POST("update/account")
+    @POST("update/responder")
     Call<Feedback> updateAccount(@Part("id") RequestBody id, @Part("userid") RequestBody userid, @Part("name") RequestBody name, @Part("email") RequestBody email, @Part("tel") RequestBody tel, @Part("password") RequestBody password);
 
     @Multipart
@@ -81,13 +83,13 @@ public interface ApiInterface {
     @GET("conditions/emergency/{id}")
     Call<Feedback> clearActive(@Path("id") String id);
 
-    @GET("fetch/responder/{id}")
+    @GET("fetch/user/{id}")
     Call<UserSingle> getAccount(@Path("id") String id);
 
-    @GET("fetch/responder/{con}")
+    @GET("fetch/user/{con}")
     Call<UserSingle> getAccountbyEmail(@Path("con") String con);
 
-    @GET("fetch/responder/{organ}")
+    @GET("fetch/user/{organ}")
     Call<UserSingle> getAccountbyOrgan(@Path("organ") String organ);
 
     @GET("fetch/amnesty")
@@ -108,8 +110,11 @@ public interface ApiInterface {
     @GET("fetch/anounce")
     Call<AnounceList> allAnounce();
 
-    @GET("fetch/account")
+    @GET("fetch/worker")
     Call<UserWorkerList> allAccount();
+
+    @GET("fetch/worker")
+    Call<UserWorkerSingle> allAccountSingle();
 
     @GET("fetch/corona")
     Call<CoronaList> allCorona();

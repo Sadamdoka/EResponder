@@ -1,3 +1,4 @@
+
 package com.esafeafrica.eresponder.Model;
 
 import com.google.gson.annotations.Expose;

@@ -16,9 +16,9 @@ import androidx.work.WorkManager;
 
 import com.esafeafrica.eresponder.Model.Notify;
 import com.esafeafrica.eresponder.R;
+import com.esafeafrica.eresponder.Welcome;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.wakaimalabs.responder.Welcome;
 
 import java.util.Map;
 

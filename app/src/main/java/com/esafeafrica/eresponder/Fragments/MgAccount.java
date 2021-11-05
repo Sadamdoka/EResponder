@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import com.esafeafrica.eresponder.Api.ApiInterface;
 import com.esafeafrica.eresponder.Api.RetroClient;
 import com.esafeafrica.eresponder.Model.Feedback;
+import com.esafeafrica.eresponder.Model.User;
+import com.esafeafrica.eresponder.Model.UserWorker;
 import com.esafeafrica.eresponder.R;
 
 import okhttp3.MultipartBody;
@@ -99,7 +101,7 @@ public class MgAccount extends Fragment {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editAccount(new Account());
+               // editAccount(new UserWorker());
             }
         });
 
@@ -113,11 +115,11 @@ public class MgAccount extends Fragment {
     }
 
 
-    private void editAccount(Account account) {
+    private void editAccount(User account) {
         apiInterface = RetroClient.getClient().create(ApiInterface.class);
         RequestBody idreq = RequestBody.create(MultipartBody.FORM, account.getId());
-        RequestBody userreq = RequestBody.create(MultipartBody.FORM, account.getUserid());
-        RequestBody namereq = RequestBody.create(MultipartBody.FORM, account.getNames());
+        RequestBody userreq = RequestBody.create(MultipartBody.FORM, account.getEmail());
+        RequestBody namereq = RequestBody.create(MultipartBody.FORM, account.getEmail());
         RequestBody emailreq = RequestBody.create(MultipartBody.FORM, account.getEmail());
         RequestBody phonereq = RequestBody.create(MultipartBody.FORM, account.getPhone());
         RequestBody passreq = RequestBody.create(MultipartBody.FORM, account.getPassword());

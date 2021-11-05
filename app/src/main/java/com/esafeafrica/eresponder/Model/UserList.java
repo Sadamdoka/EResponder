@@ -1,21 +1,21 @@
+
 package com.esafeafrica.eresponder.Model;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 
 public class UserList {
 
     @SerializedName("user")
     @Expose
-    private ArrayList<User> user = null;
+    private List<User> user = null;
 
-    public ArrayList<User> getUser() {
+    public List<User> getUser() {
         return user;
     }
 
-    public void setUser(ArrayList<User> user) {
+    public void setUser(List<User> user) {
         this.user = user;
     }
 

@@ -7,59 +7,59 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.wakaimalabs.responder.Fragments.MapsActivity"
+        android:name="com.esafeafrica.eresponder.Fragments.MapsActivity"
         android:label="@string/menu_home"
         tools:layout="@layout/activity_maps" />
 
 
     <fragment
         android:id="@+id/nav_account"
-        android:name="com.wakaimalabs.responder.Fragments.Account_frag"
+        android:name="com.esafeafrica.eresponder.Fragments.Account_frag"
         android:label="@string/account"
         tools:layout="@layout/fragment_account" />
 
     <fragment
         android:id="@+id/nav_events"
-        android:name="com.wakaimalabs.responder.Fragments.Events"
+        android:name="com.esafeafrica.eresponder.Fragments.Events"
         android:label="@string/happening_now"
         tools:layout="@layout/fragment_events" />
 
     <fragment
         android:id="@+id/nav_announce"
-        android:name="com.wakaimalabs.responder.Fragments.Announcements"
+        android:name="com.esafeafrica.eresponder.Fragments.Announcements"
         android:label="@string/announcements"
         tools:layout="@layout/fragment_announcements" />
 
     <fragment
         android:id="@+id/nav_ueara"
-        android:name="com.wakaimalabs.responder.Fragments.Feed"
+        android:name="com.esafeafrica.eresponder.Fragments.Feed"
         android:label="About Ueara"
         tools:layout="@layout/fragment_feed" />
 
     <fragment
         android:id="@+id/cor_signs"
-        android:name="com.wakaimalabs.responder.Fragments.Signs"
+        android:name="com.esafeafrica.eresponder.Fragments.Signs"
         android:label="@string/symptoms"
         tools:layout="@layout/fragment_signs" />
     <fragment
         android:id="@+id/cor_prevent"
-        android:name="com.wakaimalabs.responder.Fragments.Prevent"
+        android:name="com.esafeafrica.eresponder.Fragments.Prevent"
         android:label="Prevention Measures"
         tools:layout="@layout/fragment_prevent" />
     <fragment
         android:id="@+id/cor_stat"
-        android:name="com.wakaimalabs.responder.Fragments.CasesFragment"
+        android:name="com.esafeafrica.eresponder.Fragments.CasesFragment"
         android:label="Cases Statistics"
         tools:layout="@layout/fragment_cases" />
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="com.wakaimalabs.responder.Fragments.Help"
+        android:name="com.esafeafrica.eresponder.Fragments.Help"
         android:label="@string/app_help"
         tools:layout="@layout/fragment_help" />
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.wakaimalabs.responder.Fragments.About"
+        android:name="com.esafeafrica.eresponder.Fragments.About"
         android:label="@string/about_app"
         tools:layout="@layout/fragment_about" />
 

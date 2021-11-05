@@ -1,6 +1,9 @@
 package com.esafeafrica.eresponder.Config;
 
 
+import static com.esafeafrica.eresponder.Config.getIntents.callIntent;
+import static com.esafeafrica.eresponder.Config.getIntents.sendEmail;
+
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,8 +15,6 @@ import android.widget.Toast;
 
 import com.esafeafrica.eresponder.R;
 
-import static com.wakaimalabs.responder.Config.getIntents.callIntent;
-import static com.wakaimalabs.responder.Config.getIntents.sendEmail;
 
 
 public class CallReady {

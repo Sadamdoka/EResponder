@@ -12,8 +12,8 @@ import com.esafeafrica.eresponder.Adaptors.anounceAdaptor;
 import com.esafeafrica.eresponder.Model.Anounce;
 import com.esafeafrica.eresponder.R;
 
-import static com.wakaimalabs.responder.Config.Validation.ConvertImage;
-import static com.wakaimalabs.responder.Config.Validation.getDrawable;
+import static com.esafeafrica.eresponder.Config.Validation.ConvertImage;
+import static com.esafeafrica.eresponder.Config.Validation.getDrawable;
 
 
 public class anounceHolder extends RecyclerView.ViewHolder {

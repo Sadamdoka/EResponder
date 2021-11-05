@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.esafeafrica.eresponder.Fragments.CustomInfo;
 import com.esafeafrica.eresponder.Model.Amnesty;
 import com.esafeafrica.eresponder.R;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,7 +36,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.wakaimalabs.responder.Fragments.CustomInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

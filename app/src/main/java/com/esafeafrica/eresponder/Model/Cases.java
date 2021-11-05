@@ -1,3 +1,4 @@
+
 package com.esafeafrica.eresponder.Model;
 
 import android.os.Parcel;
@@ -8,17 +9,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Cases implements Parcelable {
 
-    public static final Creator<Cases> CREATOR = new Creator<Cases>() {
-        @Override
-        public Cases createFromParcel(Parcel in) {
-            return new Cases(in);
-        }
-
-        @Override
-        public Cases[] newArray(int size) {
-            return new Cases[size];
-        }
-    };
     @SerializedName("datereg")
     @Expose
     private String datereg;
@@ -47,14 +37,17 @@ public class Cases implements Parcelable {
         recovery = in.readString();
     }
 
-    public Cases(String datereg, String id, String _case, String dead, String lastUpdate, String recovery) {
-        this.datereg = datereg;
-        this.id = id;
-        this._case = _case;
-        this.dead = dead;
-        this.lastUpdate = lastUpdate;
-        this.recovery = recovery;
-    }
+    public static final Creator<Cases> CREATOR = new Creator<Cases>() {
+        @Override
+        public Cases createFromParcel(Parcel in) {
+            return new Cases(in);
+        }
+
+        @Override
+        public Cases[] newArray(int size) {
+            return new Cases[size];
+        }
+    };
 
     public String getDatereg() {
         return datereg;
@@ -117,5 +110,14 @@ public class Cases implements Parcelable {
         dest.writeString(dead);
         dest.writeString(lastUpdate);
         dest.writeString(recovery);
+    }
+
+    public Cases(String datereg, String id, String _case, String dead, String lastUpdate, String recovery) {
+        this.datereg = datereg;
+        this.id = id;
+        this._case = _case;
+        this.dead = dead;
+        this.lastUpdate = lastUpdate;
+        this.recovery = recovery;
     }
 }

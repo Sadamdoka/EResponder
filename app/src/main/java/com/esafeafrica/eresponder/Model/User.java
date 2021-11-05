@@ -1,3 +1,4 @@
+
 package com.esafeafrica.eresponder.Model;
 
 import android.os.Parcel;
@@ -181,17 +182,17 @@ public class User implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(datereg);
-        dest.writeString(id);
-        dest.writeString(status);
-        dest.writeString(email);
-        dest.writeString(name);
-        dest.writeString(organ);
-        dest.writeString(password);
-        dest.writeString(phone);
-        dest.writeString(resid);
-        dest.writeString(role);
-        dest.writeString(type);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(datereg);
+        parcel.writeString(id);
+        parcel.writeString(status);
+        parcel.writeString(email);
+        parcel.writeString(name);
+        parcel.writeString(organ);
+        parcel.writeString(password);
+        parcel.writeString(phone);
+        parcel.writeString(resid);
+        parcel.writeString(role);
+        parcel.writeString(type);
     }
 }

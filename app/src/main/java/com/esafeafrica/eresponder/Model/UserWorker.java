@@ -181,7 +181,10 @@ public class UserWorker implements Parcelable {
         this.userid = userid;
     }
 
-    public UserWorker(String dob, String email, String gender, String jobtype, String lati, String lcompany, String location, String longi, String names, String passport, String phone) {
+
+
+    public UserWorker(String address, String dob, String email, String gender, String jobtype, String lati, String lcompany, String location, String longi, String names, String passport, String phone, String pic) {
+        this.address = address;
         this.dob = dob;
         this.email = email;
         this.gender = gender;
@@ -193,6 +196,7 @@ public class UserWorker implements Parcelable {
         this.names = names;
         this.passport = passport;
         this.phone = phone;
+        this.pic = pic;
     }
 
     public UserWorker(String datereg, String id, String status, String address, String bankAccount, String bankName, String code, String district, String dob, String email, String exPhone, String fcompany, String fpic, String gender, String jobtype, String kinName, String kinPhone, String lati, String lcompany, String location, String longi, String marital, String names, String nationality, String nin, String npic, String parish, String passport, String phone, String pic, String pob, String ptpic, String subcounty, String userid, String village) {

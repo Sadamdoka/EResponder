@@ -6,33 +6,26 @@
 package com.esafeafrica.eresponder.Model;
 
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 /**
  * @author Sadam
  */
 
 public class Notify {
-    @SerializedName("to")
-    @Expose
-    private String to;
-    @SerializedName("topic")
-    @Expose
-    private String topic;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("body")
-    @Expose
-    private String body;
-    @SerializedName("msg")
-    @Expose
-    private String msg;
+    private String to, topic, title, body, msg;
 
+    /**
+     *
+     */
     public Notify() {
     }
 
+    /**
+     * @param to
+     * @param topic
+     * @param title
+     * @param body
+     * @param msg
+     */
     public Notify(String to, String topic, String title, String body, String msg) {
         this.to = to;
         this.topic = topic;
@@ -41,42 +34,72 @@ public class Notify {
         this.msg = msg;
     }
 
+    /**
+     * @return
+     */
     public String getTo() {
         return to;
     }
 
+    /**
+     * @param to
+     */
     public void setTo(String to) {
         this.to = to;
     }
 
+    /**
+     * @return
+     */
     public String getTopic() {
         return topic;
     }
 
+    /**
+     * @param topic
+     */
     public void setTopic(String topic) {
         this.topic = topic;
     }
 
+    /**
+     * @return
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * @return
+     */
     public String getBody() {
         return body;
     }
 
+    /**
+     * @param body
+     */
     public void setBody(String body) {
         this.body = body;
     }
 
+    /**
+     * @return
+     */
     public String getMsg() {
         return msg;
     }
 
+    /**
+     * @param msg
+     */
     public void setMsg(String msg) {
         this.msg = msg;
     }

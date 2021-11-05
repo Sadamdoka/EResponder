@@ -33,7 +33,9 @@ public class Organ implements Parcelable {
     @SerializedName("phone")
     @Expose
     private String phone;
-
+    @SerializedName("type")
+    @Expose
+    private String type;
 
     public Organ() {
     }
@@ -139,6 +141,14 @@ public class Organ implements Parcelable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
